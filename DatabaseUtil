@@ -1,0 +1,18 @@
+<?php
+
+namespace App\util;
+use MongoDB;
+
+class DatabaseUtil {
+
+    private $dbName = "bank";
+
+    public function getConnection($collectionName) {
+        $dbUrl = "mongodb://" . "127.0.0.1" . ":" . "27017";
+        $client = new MongoDB\Client($dbUrl);
+        $db = $client->selectDatabase($this->dbName);
+        $options = ["typeMap" => ['root' => 'array', 'document' => 'array']];
+        $collection = $db->selectCollection($collectionName, $options);
+        return $collection;
+    }
+}
